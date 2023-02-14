@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2023 at 02:27 PM
+-- Generation Time: Feb 14, 2023 at 06:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,7 +43,7 @@ CREATE TABLE `chat` (
 
 CREATE TABLE `chatroom` (
   `chatroomid` int(11) NOT NULL,
-  `chat_name` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `chat_name` varchar(60) NOT NULL,
   `date_created` datetime NOT NULL,
   `chat_password` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `userid` int(11) NOT NULL
@@ -54,7 +54,10 @@ CREATE TABLE `chatroom` (
 --
 
 INSERT INTO `chatroom` (`chatroomid`, `chat_name`, `date_created`, `chat_password`, `userid`) VALUES
-(12, 'bdbdf', '2023-02-02 10:48:56', '23', 8);
+(12, 'bdbdf', '2023-02-02 10:48:56', '23', 8),
+(19, '????', '2023-02-14 08:37:58', '123', 20),
+(20, 'سیرسی', '2023-02-14 08:43:02', '123', 8),
+(21, 'صثبصث', '2023-02-14 08:43:40', '123', 21);
 
 -- --------------------------------------------------------
 
@@ -74,7 +77,10 @@ CREATE TABLE `chat_member` (
 --
 
 INSERT INTO `chat_member` (`chat_memberid`, `chatroomid`, `userid`, `access`) VALUES
-(21, 12, 8, 0);
+(21, 12, 8, 0),
+(33, 19, 20, 0),
+(34, 20, 8, 0),
+(35, 21, 21, 0);
 
 -- --------------------------------------------------------
 
@@ -84,16 +90,20 @@ INSERT INTO `chat_member` (`chat_memberid`, `chatroomid`, `userid`, `access`) VA
 
 CREATE TABLE `tbl_city` (
   `city_id` int(11) NOT NULL,
-  `city_name` varchar(255) NOT NULL
+  `city_name` varchar(255) NOT NULL,
+  `state_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
 -- Dumping data for table `tbl_city`
 --
 
-INSERT INTO `tbl_city` (`city_id`, `city_name`) VALUES
-(1, 'تهران'),
-(2, 'دماوند');
+INSERT INTO `tbl_city` (`city_id`, `city_name`, `state_name`) VALUES
+(1, 'تهران', 'تهران'),
+(2, 'دماوند', 'تهران'),
+(3, 'کرمان', 'کرمان'),
+(4, 'سیرجان', 'کرمان'),
+(7, 'بردسیر', 'کرمان');
 
 -- --------------------------------------------------------
 
@@ -110,6 +120,7 @@ CREATE TABLE `tbl_customer` (
   `cust_address` mediumtext NOT NULL,
   `cust_city` varchar(100) NOT NULL,
   `cust_state` varchar(100) NOT NULL,
+  `cust_district` varchar(255) NOT NULL,
   `cust_zip` varchar(30) NOT NULL,
   `cust_b_name` varchar(100) NOT NULL,
   `cust_b_cname` varchar(100) NOT NULL,
@@ -138,13 +149,17 @@ CREATE TABLE `tbl_customer` (
 -- Dumping data for table `tbl_customer`
 --
 
-INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_cname`, `cust_email`, `cust_phone`, `cust_address`, `cust_city`, `cust_state`, `cust_zip`, `cust_b_name`, `cust_b_cname`, `cust_b_phone`, `cust_b_address`, `cust_b_city`, `cust_b_state`, `cust_b_zip`, `cust_s_name`, `cust_s_cname`, `cust_s_phone`, `cust_s_address`, `cust_s_city`, `cust_s_state`, `cust_s_zip`, `cust_password`, `cust_token`, `cust_datetime`, `cust_timestamp`, `cust_status`, `cust_latitude`, `cust_longitude`) VALUES
-(13, 'mohammad', '', 'mh.karimi179@gmail.com', '9126589874', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', 'محمد حسین کریمی', 'nfgnfgn', '9129265614', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', 'محمد حسین کریمی', 'fgnfgnfgn', '9129265614', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', '827ccb0eea8a706c4c34a16891f84e7b', 'cce0e1ac75463453d46ce899508ba496', '2023-01-25 09:21:46', '1674710506', 1, '35.6946007887369', '53.6946007884369'),
-(14, 'ali', '', 'mh.karimi29@gmail.com', '1231564654', 'dqw\'d,;qwd\',qwd', 'تهران', 'تهران', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'f258a238325482d2111de918ec36aad4', '2023-01-25 09:40:42', '1674711642', 1, '', ''),
-(15, 'qwe', '', 'admin@mail.com', '9126589874', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'e97ae987f1c58eb1a6e2c553a28b7a2f', '2023-01-25 09:55:50', '1674712550', 1, '', ''),
-(17, 'abbas', 'acasc', 'mh.karimi79@gmail.com', '36584222', 'sacsacs;a\'cs,c\'asc,', 'تهران', 'تهران', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '827ccb0eea8a706c4c34a16891f84e7b', 'c63847d769f8c96f9fc2321c9f1920f0', '2023-01-28 09:19:14', '1674969554', 1, '', ''),
-(18, 'abbbas', '', 'admisdvsdvdn@mail.com', '564564646', 'sdklnvklnsdklvnskldvn', 'تهران', 'تهران', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '81dc9bdb52d04dc20036dbd8313ed055', 'ede53133b11874fb5f62dca8da10710e', '2023-01-28 09:25:48', '1674969948', 1, '35.69460078873696', '51.18713384494186'),
-(19, 'محمد حسین کریمی', 'dwdwq', 'administrator@cewwe.com', '123123', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'e66beb268c33ff76097b231c708a98a1', '2023-02-01 11:53:48', '1675324428', 1, '36.11952092755109', '50.94680791720749');
+INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_cname`, `cust_email`, `cust_phone`, `cust_address`, `cust_city`, `cust_state`, `cust_district`, `cust_zip`, `cust_b_name`, `cust_b_cname`, `cust_b_phone`, `cust_b_address`, `cust_b_city`, `cust_b_state`, `cust_b_zip`, `cust_s_name`, `cust_s_cname`, `cust_s_phone`, `cust_s_address`, `cust_s_city`, `cust_s_state`, `cust_s_zip`, `cust_password`, `cust_token`, `cust_datetime`, `cust_timestamp`, `cust_status`, `cust_latitude`, `cust_longitude`) VALUES
+(13, 'mohammad', '', 'mh.karimi179@gmail.com', '9126589874', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'سیرجان', 'کرمان', 'ده مرغ', '1494673888', 'محمد حسین کریمی', 'nfgnfgn', '9129265614', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', 'محمد حسین کریمی', 'fgnfgnfgn', '9129265614', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '1494673888', '202cb962ac59075b964b07152d234b70', 'cce0e1ac75463453d46ce899508ba496', '2023-01-25 09:21:46', '1674710506', 1, '35.6946007887369', '53.6946007884369'),
+(14, 'ali', '', 'mh.karimi29@gmail.com', '1231564654', 'dqw\'d,;qwd\',qwd', 'تهران', 'تهران', '', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'f258a238325482d2111de918ec36aad4', '2023-01-25 09:40:42', '1674711642', 1, '', ''),
+(15, 'qwe', '', 'admin@mail.com', '9126589874', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'e97ae987f1c58eb1a6e2c553a28b7a2f', '2023-01-25 09:55:50', '1674712550', 1, '', ''),
+(17, 'abbas', 'acasc', 'mh.karimi79@gmail.com', '36584222', 'sacsacs;a\'cs,c\'asc,', 'تهران', 'تهران', '', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '827ccb0eea8a706c4c34a16891f84e7b', 'c63847d769f8c96f9fc2321c9f1920f0', '2023-01-28 09:19:14', '1674969554', 1, '', ''),
+(18, 'abbbas', '', 'admisdvsdvdn@mail.com', '564564646', 'sdklnvklnsdklvnskldvn', 'تهران', 'تهران', '', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '81dc9bdb52d04dc20036dbd8313ed055', 'ede53133b11874fb5f62dca8da10710e', '2023-01-28 09:25:48', '1674969948', 1, '35.69460078873696', '51.18713384494186'),
+(19, 'محمد حسین کریمی', 'dwdwq', 'administrator@cewwe.com', '123123', 'دهکده المپیک-چهارراه زیبادشت-زیبادشت بالا -خیابان گلبانگ -گلشاد سوم -مجتمع مسکونی مدیا بلوک D واحد 39', 'تهران', 'تهران', '', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'e66beb268c33ff76097b231c708a98a1', '2023-02-01 11:53:48', '1675324428', 1, '36.11952092755109', '50.94680791720749'),
+(20, 'محمد حسین کریمی', '', 'administ@sdvs.com', '54564654', 'یبکمذئبیمکذئبمیکذئ', 'سیرجان', 'سمکیرئمکسیرئمیکئ', '', '4568', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'b327598dce849e91371fe1baafddb020', '2023-02-13 10:00:17', '1676311217', 1, '36.09288959345646', '51.119842543266714'),
+(21, 'محمد حسین کریمی', '', 'administrator@sdvsdv.com', '9126589874', 'سلام', 'دماوند', 'تهران', 'سزسزسیز', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'f8eb8e3f46db52cda7eb48cfcb5aee95', '2023-02-13 10:12:51', '1676311971', 1, '36.17496489770502', '51.07315064873548'),
+(22, 'محمد امین کریمی', '', 'administr@we.com', '123123', 'salam', 'سیرجان', 'کرمان', 'پاریز', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'f777e1db62d0307d0ceabb3cd3bc24f8', '2023-02-13 10:15:32', '1676312132', 1, '36.11618995692912', '50.97839356865735'),
+(23, 'غبعبغعب', '', 'mh.krimi179@gmail.com', '1231564654', 'نتتنانتا', 'بردسیر', 'کرمان', 'پاریز', '1494673888', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '202cb962ac59075b964b07152d234b70', 'a3f4fee66eda89f3064b47452ef078a9', '2023-02-13 11:39:54', '1676317194', 1, '35.60270394443228', '51.413726820610464');
 
 -- --------------------------------------------------------
 
@@ -422,7 +437,8 @@ INSERT INTO `tbl_order` (`id`, `product_id`, `product_name`, `keshavarz`, `categ
 (63, 148, 'عسل کله پوره', 'ahma', 'sabad', '1', '156000', '1675784622', '35.6946007887369', '53.6946007884369'),
 (64, 151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '1', '36200', '1675835556', '35.6946007887369', '53.6946007884369'),
 (65, 142, 'پرتغال درجه1', 'ahmadi', 'kartoni', '1', '35000', '1676015440', '35.6946007887369', '53.6946007884369'),
-(66, 151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '7', '36200', '1676015440', '35.6946007887369', '53.6946007884369');
+(66, 151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '7', '36200', '1676015440', '35.6946007887369', '53.6946007884369'),
+(68, 151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '1', '36200', '1676039900', '35.6946007887369', '53.6946007884369');
 
 -- --------------------------------------------------------
 
@@ -515,9 +531,8 @@ INSERT INTO `tbl_product` (`p_id`, `p_name`, `p_keshavarz`, `p_category`, `p_old
 (143, 'سیب قرمز', 'ahmadi', 'sabad', '25000', '35000', 13998, 'product-featured-143.jpeg', '', '', '', '', 20, 0, 1, 89),
 (144, 'سیب زمینی', 'ahmadi', 'kartoni', '', '21000', 3600, 'product-featured-144.jpg', '', '', '', '', 4, 0, 1, 113),
 (145, 'فلفل دلمه ای رنگی', 'ali', 'kartoni', '', '41000', 312, 'product-featured-145.jpg', '', '', '', '', 6, 0, 1, 116),
-(146, 'برنج طارم', 'ahmadi', 'kartoni', '280000', '300000', 14000, 'product-featured-146.jpeg', '', '', '', '', 3, 0, 1, 134),
-(148, 'عسل کله پوره', 'ahma', 'sabad', '', '156000', 149, 'product-featured-148.jpeg', '', '', '', '', 5, 0, 1, 147),
-(151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '33000', '36200', 642, 'product-featured-151.jpeg', '', '', '', '', 17, 1, 1, 111);
+(148, 'عسل کله پوره', 'ahma', 'sabad', '', '156000', 149, 'product-featured-148.jpeg', '', '', '', '', 8, 0, 1, 147),
+(151, 'گوجه دست چین شده', 'ahmadi', 'sabad', '33000', '36200', 641, 'product-featured-151.jpeg', '', '', '', '', 31, 1, 1, 111);
 
 -- --------------------------------------------------------
 
@@ -886,7 +901,10 @@ INSERT INTO `user` (`userid`, `username`, `password`, `uname`, `photo`, `access`
 (15, 'andi-keshavarz', '202cb962ac59075b964b07152d234b70', 'andi-keshavarz', '', 2),
 (16, '???? ???? ?????', '202cb962ac59075b964b07152d234b70', '???? ???? ?????(user)', '', 2),
 (17, 'qweeeeeeeeeeee', '202cb962ac59075b964b07152d234b70', 'qweeeeeeeeeeee(keshavarz)', '', 2),
-(18, '???? ???? ?????', '202cb962ac59075b964b07152d234b70', '???? ???? ?????(keshavarz)', '', 2);
+(18, '???? ???? ?????', '202cb962ac59075b964b07152d234b70', '???? ???? ?????(keshavarz)', '', 2),
+(20, 'محمد حسین کریمی', '202cb962ac59075b964b07152d234b70', 'محمد حسین کریمی(user)', '', 2),
+(21, 'محمد امین کریمی', '202cb962ac59075b964b07152d234b70', 'محمد امین کریمی(user)', '', 2),
+(22, 'غبعبغعب', '202cb962ac59075b964b07152d234b70', 'غبعبغعب(user)', '', 2);
 
 --
 -- Indexes for dumped tables
@@ -1050,25 +1068,25 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `chatroom`
 --
 ALTER TABLE `chatroom`
-  MODIFY `chatroomid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `chatroomid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `chat_member`
 --
 ALTER TABLE `chat_member`
-  MODIFY `chat_memberid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `chat_memberid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tbl_city`
 --
 ALTER TABLE `tbl_city`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_discount`
@@ -1110,13 +1128,13 @@ ALTER TABLE `tbl_name_keshavarz`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `tbl_photo`
@@ -1182,7 +1200,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
